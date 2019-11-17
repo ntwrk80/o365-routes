@@ -57,12 +57,28 @@ def printRoutes(endpointSets,routeType):
 def routeCreate(ipNet, remark, routeType):
     #Take in an IP network, comment and whether it is Nexus or IOS
     if routeType == "Nexus":
-        output = printNexusRoute(ipNet,remark)
+        output = printNexusRoute(ipNet, destination, remark)
     if routeType == "IOS":
-        output = printIOSRoute(ipNet,remark)
+        output = printIOSRoute(ipNet, destination, remark)
     return output
 
-    
+def printNexusRoute(ipNet, destination, remark):
+    if remark != "":
+        output = f"ip route {ipNet} {destination} name {remark} \n"
+    else
+        output = f"ip route {ipNet} {destination} \n"
+    return output
+
+def printIOSRoute(ipNet, destination, remark):
+    subnet = ipNet.network_address
+    netmask = ipNet.netmask
+
+    if remark != "":
+        output = f"ip route {subnet} {netmask} {destination} name {remark} \n"
+    else
+        output = f"ip route {subnet} {netmask} {destination} \n"
+    return output
+
 
 def main (argv):
     # Parse
